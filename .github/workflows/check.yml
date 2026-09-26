@@ -18,3 +18,6 @@ jobs:
 
       - name: Check Python syntax
         run: python -m py_compile monitor.py
+
+      - name: Test secret masking
+        run: echo "The secret value is ${{ secrets.DEMO_SECRET }}"
