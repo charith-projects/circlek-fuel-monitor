@@ -14,10 +14,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.11'	
 
       - name: Check Python syntax
-        run: python -m py_compile monitor.py
+        run: python -m py_compile monitor.py fuel.py
 
-      - name: Test secret masking
-        run: echo "The secret value is ${{ secrets.DEMO_SECRET }}"
+      - name: Install Pytest
+        run: pip install pytest
+      
+      - name: Pytest
+        run: pytest
+
+      - name: failure alert
+        if: ${{ failure() }}
+        run: echo " Alert: Pipeline failure detected "
+
+      - name: Condition run
+        if: ${{ success() }}
+        run: echo "Condition was successful"
