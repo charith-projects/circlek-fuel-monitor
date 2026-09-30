@@ -27,7 +27,7 @@ jobs:
 
       - name: failure alert
         if: ${{ failure() }}
-        run: echo " Alert: Pipeline failure detected "
+        run: echo "Alert: Pipeline failure detected"
 
       - name: Condition run
         if: ${{ success() }}
