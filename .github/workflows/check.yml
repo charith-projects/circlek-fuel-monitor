@@ -25,6 +25,10 @@ jobs:
       - name: Pytest
         run: pytest
 
+      - name: failure alert
+        if: ${{ failure() }}
+        run: echo " Alert: Pipeline failure detected "
+
       - name: Condition run
         if: ${{ success() }}
         run: echo "Condition was successful"
