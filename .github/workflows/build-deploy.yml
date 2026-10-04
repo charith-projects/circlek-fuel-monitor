@@ -1,0 +1,32 @@
+name: CK-build-deploy
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Package-code
+        run: |
+          mkdir dist
+          cp fuel.py monitor.py dist/
+
+      - name: Upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+           name: circlek-build
+           path: dist/
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download-artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: circlek-build
+          path: dist/
+
+      - name: List code
+        run: ls dist/
